@@ -142,11 +142,10 @@
                                 </button>
                             </subviews>
                         </stackView>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9an-1W-thw">
-                            <rect key="frame" x="12" y="11.5" width="30" height="37"/>
-                            <fontDescription key="fontDescription" name="icomoon" family="icomoon" pointSize="25"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9an-1W-thw">
+                            <rect key="frame" x="12" y="18" width="24" height="24"/>
                             <size key="titleShadowOffset" width="1" height="0.0"/>
-                            <state key="normal" title="">
+                            <state key="normal" image="Close">
                                 <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="0.1532266695" colorSpace="calibratedRGB"/>
                             </state>
@@ -330,7 +329,8 @@
         </view>
     </objects>
     <resources>
-        <image name="Aa" width="24" height="15"/>
+        <image name="Aa" width="24" height="24"/>
+        <image name="Close" width="24" height="24"/>
         <image name="Crop" width="24" height="24"/>
         <image name="Download" width="24" height="24"/>
         <image name="Edit" width="24" height="24"/>
