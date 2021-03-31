@@ -38,6 +38,7 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var saveButton: UIButton!
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet var uploadBtn: UIButton!
     
     @objc public var image: UIImage?
     /**
@@ -81,7 +82,11 @@ public final class PhotoEditorViewController: UIViewController {
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.setImageView(image: image!)
-        
+        uploadBtn.layer.cornerRadius = 4
+        uploadBtn.layer.masksToBounds = true
+        uploadBtn.sizeToFit()
+        uploadBtn.setTitle(Translator.getString(key: "upload"), for: .normal)
+        doneButton.setTitle(Translator.getString(key: "done"), for: .normal)
         deleteView.layer.cornerRadius = deleteView.bounds.height / 2
         deleteView.layer.borderWidth = 2.0
         deleteView.layer.borderColor = UIColor.white.cgColor
@@ -149,3 +154,11 @@ extension PhotoEditorViewController: ColorDelegate {
         }
     }
 }
+
+class Translator {
+  static func getString(key: String) -> String {
+    let str = Bundle.main.localizedString(forKey: key, value: nil, table: nil)
+    return str
+  }
+}
+
