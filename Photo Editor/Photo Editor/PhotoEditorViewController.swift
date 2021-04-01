@@ -55,6 +55,9 @@ public final class PhotoEditorViewController: UIViewController {
     
     // list of controls to be hidden
     @objc public var hiddenControls : [NSString] = []
+    
+    // list of controls to be hidden
+    @objc public var themeColor : NSString = "#ff0066"
 
     var stickersVCIsVisible = false
     var drawColor: UIColor = UIColor.black
@@ -85,6 +88,7 @@ public final class PhotoEditorViewController: UIViewController {
         uploadBtn.layer.cornerRadius = 4
         uploadBtn.layer.masksToBounds = true
         uploadBtn.sizeToFit()
+        uploadBtn.backgroundColor = hexStringToUIColor(hex: themeColor)
         uploadBtn.setTitle(Translator.getString(key: "upload"), for: .normal)
         doneButton.setTitle(Translator.getString(key: "done"), for: .normal)
         deleteView.layer.cornerRadius = deleteView.bounds.height / 2
@@ -162,3 +166,24 @@ class Translator {
   }
 }
 
+func hexStringToUIColor (hex:NSString) -> UIColor {
+    var cString:String = hex.trimmingCharacters(in: .whitespacesAndNewlines).uppercased()
+
+    if (cString.hasPrefix("#")) {
+        cString.remove(at: cString.startIndex)
+    }
+
+    if ((cString.count) != 6) {
+        return UIColor.gray
+    }
+
+    var rgbValue:UInt64 = 0
+    Scanner(string: cString).scanHexInt64(&rgbValue)
+
+    return UIColor(
+        red: CGFloat((rgbValue & 0xFF0000) >> 16) / 255.0,
+        green: CGFloat((rgbValue & 0x00FF00) >> 8) / 255.0,
+        blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
+        alpha: CGFloat(1.0)
+    )
+}
