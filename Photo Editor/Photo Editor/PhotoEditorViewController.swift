@@ -39,6 +39,7 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet weak var shareButton: UIButton!
     @IBOutlet weak var clearButton: UIButton!
     @IBOutlet var uploadBtn: UIButton!
+    @IBOutlet weak var cancelButton: UIButton!
     
     @objc public var image: UIImage?
     /**
@@ -82,6 +83,8 @@ public final class PhotoEditorViewController: UIViewController {
         super.loadView()
     }
     
+    
+    
     override public func viewDidLoad() {
         super.viewDidLoad()
         self.setImageView(image: image!)
@@ -90,11 +93,21 @@ public final class PhotoEditorViewController: UIViewController {
         uploadBtn.sizeToFit()
         uploadBtn.backgroundColor = hexStringToUIColor(hex: themeColor)
         uploadBtn.setTitle(Translator.getString(key: "upload"), for: .normal)
+        clearButton.setTitle(Translator.getString(key: "clear"), for: .normal)
         doneButton.setTitle(Translator.getString(key: "done"), for: .normal)
         deleteView.layer.cornerRadius = deleteView.bounds.height / 2
         deleteView.layer.borderWidth = 2.0
         deleteView.layer.borderColor = UIColor.white.cgColor
         deleteView.clipsToBounds = true
+        
+        
+        addDropShadow(control: clearButton)
+        addDropShadow(control: cropButton)
+        addDropShadow(control: textButton)
+        addDropShadow(control: saveButton)
+        addDropShadow(control: drawButton)
+        addDropShadow(control: doneButton)
+        addDropShadow(control: cancelButton)
         
         let edgePan = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(screenEdgeSwiped))
         edgePan.edges = .bottom
@@ -112,6 +125,7 @@ public final class PhotoEditorViewController: UIViewController {
         configureCollectionView()
         stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: Bundle(for: StickersViewController.self))
         hideControls()
+        colorPickerViewBottomConstraint.constant = 50
     }
     
     func configureCollectionView() {
@@ -186,4 +200,11 @@ func hexStringToUIColor (hex:NSString) -> UIColor {
         blue: CGFloat(rgbValue & 0x0000FF) / 255.0,
         alpha: CGFloat(1.0)
     )
+}
+
+func addDropShadow(control:UIButton){
+    control.layer.shadowColor = UIColor.black.cgColor
+    control.layer.shadowOpacity = 0.4;
+    control.layer.shadowRadius = 2;
+    control.layer.shadowOffset = CGSize(width: 3, height: 3)
 }
