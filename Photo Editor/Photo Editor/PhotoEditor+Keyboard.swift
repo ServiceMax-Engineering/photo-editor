@@ -23,6 +23,7 @@ extension PhotoEditorViewController {
         isTyping = false
         doneButton.isHidden = true
         hideToolbar(hide: false)
+        self.colorPickerViewBottomConstraint.constant = 50
     }
     
     @objc func keyboardWillChangeFrame(_ notification: NSNotification) {
