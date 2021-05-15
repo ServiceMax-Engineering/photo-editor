@@ -48,6 +48,11 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
         return 1
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize
+           {
+        return CGSize(width: 42.0, height: 42.0)
+           }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCollectionViewCell", for: indexPath) as! ColorCollectionViewCell
         cell.colorView.backgroundColor = colors[indexPath.item]
