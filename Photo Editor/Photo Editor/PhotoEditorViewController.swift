@@ -95,10 +95,6 @@ public final class PhotoEditorViewController: UIViewController {
         uploadBtn.setTitle(Translator.getString(key: "upload"), for: .normal)
         clearButton.setTitle(Translator.getString(key: "clear"), for: .normal)
         doneButton.setTitle(Translator.getString(key: "done"), for: .normal)
-        deleteView.layer.cornerRadius = deleteView.bounds.height / 2
-        deleteView.layer.borderWidth = 2.0
-        deleteView.layer.borderColor = UIColor.white.cgColor
-        deleteView.clipsToBounds = true
         
         
         addDropShadow(control: clearButton)
