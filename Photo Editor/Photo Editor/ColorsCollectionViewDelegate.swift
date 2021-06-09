@@ -11,7 +11,7 @@ import UIKit
 class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     
     var colorDelegate : ColorDelegate?
-    
+    var previousIndex : IndexPath?
     /**
      Array of Colors that will show while drawing or typing
      */
@@ -41,6 +41,15 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        if let prevIndex = previousIndex{
+            if let prevcolorView = collectionView.cellForItem(at: prevIndex) as? ColorCollectionViewCell{
+                prevcolorView.isCellSelected = false;
+            }
+        }
+        if let colorView = collectionView.cellForItem(at: indexPath) as? ColorCollectionViewCell{
+            colorView.isCellSelected = true;
+        }
+        previousIndex = indexPath
         colorDelegate?.didSelectColor(color: colors[indexPath.item])
     }
     
@@ -55,8 +64,8 @@ class ColorsCollectionViewDelegate: NSObject, UICollectionViewDataSource, UIColl
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell  = collectionView.dequeueReusableCell(withReuseIdentifier: "ColorCollectionViewCell", for: indexPath) as! ColorCollectionViewCell
+        cell.isCellSelected = false
         cell.colorView.backgroundColor = colors[indexPath.item]
         return cell
     }
-    
 }
