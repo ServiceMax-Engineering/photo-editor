@@ -99,9 +99,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
                         break
                     }
                 }
-            } else if view is UITextView{
-                view.becomeFirstResponder()
-            }else {
+            } else {
                 scaleEffect(view: view)
             }
         }
