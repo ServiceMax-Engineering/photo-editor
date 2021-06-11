@@ -15,8 +15,10 @@ public final class PhotoEditorViewController: UIViewController {
     //To hold the image
     @IBOutlet var imageView: UIImageView!
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
+    @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
     //To hold the drawings and stickers
     @IBOutlet weak var canvasImageView: UIImageView!
+    @IBOutlet weak var imageBackGroundView: UIView!
 
     @IBOutlet weak var topToolbar: UIView!
     @IBOutlet weak var bottomToolbar: UIView!
@@ -87,7 +89,7 @@ public final class PhotoEditorViewController: UIViewController {
     
     override public func viewDidLoad() {
         super.viewDidLoad()
-        self.setImageView(image: image!)
+      
         uploadBtn.layer.cornerRadius = 4
         uploadBtn.layer.masksToBounds = true
         uploadBtn.sizeToFit()
@@ -121,7 +123,11 @@ public final class PhotoEditorViewController: UIViewController {
         configureCollectionView()
         stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: Bundle(for: StickersViewController.self))
         hideControls()
-        colorPickerViewBottomConstraint.constant = 50
+        colorPickerViewBottomConstraint.constant = 25
+    }
+    
+    public override func viewDidAppear(_ animated: Bool) {
+        self.setImageView(image: image!);
     }
     
     func configureCollectionView() {
@@ -147,7 +153,19 @@ public final class PhotoEditorViewController: UIViewController {
     func setImageView(image: UIImage) {
         imageView.image = image
         let size = image.suitableSize(widthLimit: UIScreen.main.bounds.width)
-        imageViewHeightConstraint.constant = (size?.height)!
+        
+        self.imageViewWidthConstraint.priority = .required
+        if (size?.height ?? 0.0 > imageBackGroundView.frame.height)
+        {
+            imageViewHeightConstraint.constant = imageBackGroundView.frame.height
+            imageViewWidthConstraint.constant = UIScreen.main.bounds.width - 110
+            
+        }
+        else{
+           imageViewHeightConstraint.constant = (size?.height)!
+           imageViewWidthConstraint.constant = size?.width ?? 0.0
+        }
+        self.view.layoutIfNeeded()
     }
     
     func hideToolbar(hide: Bool) {

@@ -43,6 +43,10 @@ extension PhotoEditorViewController: UITextViewDelegate {
         }
         activeTextView = nil
         textView.font = self.lastTextViewFont!
+        let sizeToFit = textView.sizeThatFits(CGSize(width: UIScreen.main.bounds.size.width,
+                                                     height:CGFloat.greatestFiniteMagnitude))
+        textView.bounds.size = CGSize(width: textView.intrinsicContentSize.width,
+                                      height: sizeToFit.height)
         UIView.animate(withDuration: 0.3,
                        animations: {
                         textView.transform = self.lastTextViewTransform!

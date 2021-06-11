@@ -99,9 +99,15 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
                         break
                     }
                 }
-            } else if view is UITextView{
-                view.becomeFirstResponder()
-            }else {
+            } else if view is UITextView {
+                let textView = view as! UITextView
+                let sizeToFit = textView.sizeThatFits(CGSize(width: UIScreen.main.bounds.size.width,
+                                                             height:CGFloat.greatestFiniteMagnitude))
+                textView.bounds.size = CGSize(width: canvasImageView.bounds.width-20,
+                                              height: sizeToFit.height)
+                textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                textView.becomeFirstResponder();
+            } else {
                 scaleEffect(view: view)
             }
         }
@@ -214,7 +220,7 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
                     let generator = UINotificationFeedbackGenerator()
                     generator.notificationOccurred(.success)
                 }
-            } else if !canvasImageView.bounds.contains(view.center) { //Snap the view back to canvasImageView
+            } else if !canvasImageView.bounds.contains(view.frame) { //Snap the view back to canvasImageView
                 UIView.animate(withDuration: 0.3, animations: {
                     view.center = self.canvasImageView.center
                 })
