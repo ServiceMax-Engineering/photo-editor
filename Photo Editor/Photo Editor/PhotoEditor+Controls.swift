@@ -56,8 +56,8 @@ extension PhotoEditorViewController {
     @IBAction func textButtonTapped(_ sender: Any) {
         isTyping = true
         let textView = UITextView(frame: CGRect(x: 0, y: canvasImageView.center.y,
-                                                width: UIScreen.main.bounds.width, height: 30))
-        
+                                                width: canvasImageView.bounds.width-20, height: 30))
+        textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         textView.textAlignment = .center
         textView.font = UIFont(name: "Helvetica", size: 30)
         textView.textColor = textColor
