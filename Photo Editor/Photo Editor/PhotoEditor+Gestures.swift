@@ -101,10 +101,14 @@ extension PhotoEditorViewController : UIGestureRecognizerDelegate  {
                 }
             } else if view is UITextView {
                 let textView = view as! UITextView
+                let noOfLines = textView.contentSize.height/textView.font!.lineHeight;
+                if noOfLines < 2.0
+                {
                 let sizeToFit = textView.sizeThatFits(CGSize(width: UIScreen.main.bounds.size.width,
                                                              height:CGFloat.greatestFiniteMagnitude))
                 textView.bounds.size = CGSize(width: canvasImageView.bounds.width-20,
                                               height: sizeToFit.height)
+                }
                 textView.textContainerInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
                 textView.becomeFirstResponder();
             } else {
