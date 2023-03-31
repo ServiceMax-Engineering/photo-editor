@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait" appearance="light"/>
+    <device id="retina4_7" orientation="portrait"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
@@ -304,11 +304,12 @@
             <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
             <constraints>
                 <constraint firstItem="87h-1G-t5q" firstAttribute="leading" secondItem="HPk-Bg-V0q" secondAttribute="leading" id="0ft-JY-szV"/>
-                <constraint firstItem="KxU-y4-Jwh" firstAttribute="top" secondItem="Zfb-jk-lQO" secondAttribute="top" constant="-8" id="1QI-yc-Gke"/>
+                <constraint firstItem="KxU-y4-Jwh" firstAttribute="top" secondItem="Zfb-jk-lQO" secondAttribute="top" id="1QI-yc-Gke"/>
+                <constraint firstItem="KxU-y4-Jwh" firstAttribute="bottom" secondItem="3MS-N5-3xY" secondAttribute="bottom" id="LQI-yc-Fke"/>
                 <constraint firstItem="Cy8-ap-fH9" firstAttribute="centerX" secondItem="HPk-Bg-V0q" secondAttribute="centerX" id="24Z-2f-Tyk"/>
                 <constraint firstItem="S1Y-ZS-dct" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="HPk-Bg-V0q" secondAttribute="leading" priority="250" id="2tC-2e-oA6"/>
                 <constraint firstItem="Cy8-ap-fH9" firstAttribute="leading" secondItem="HPk-Bg-V0q" secondAttribute="leading" id="6eK-mF-0OL"/>
-                <constraint firstItem="3MS-N5-3xY" firstAttribute="top" secondItem="Zfb-jk-lQO" secondAttribute="top" constant="-20" id="Fj6-PW-wbF"/>
+                <constraint firstItem="3MS-N5-3xY" firstAttribute="top" secondItem="Zfb-jk-lQO" secondAttribute="top" id="Fj6-PW-wbF"/>
                 <constraint firstItem="Zfb-jk-lQO" firstAttribute="trailing" secondItem="p3t-CD-Sg1" secondAttribute="trailing" id="Gbd-C3-hYC"/>
                 <constraint firstItem="p3t-CD-Sg1" firstAttribute="bottom" secondItem="ZGa-1B-gkO" secondAttribute="top" constant="-5" id="L18-Lo-H2i"/>
                 <constraint firstItem="p3t-CD-Sg1" firstAttribute="top" secondItem="3MS-N5-3xY" secondAttribute="bottom" constant="5" id="LdP-gl-xkJ"/>
