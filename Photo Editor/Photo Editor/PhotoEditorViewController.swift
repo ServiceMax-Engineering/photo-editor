@@ -43,6 +43,8 @@ public final class PhotoEditorViewController: UIViewController {
     @IBOutlet var uploadBtn: UIButton!
     @IBOutlet weak var cancelButton: UIButton!
     
+    @IBOutlet weak var arrowButton: UIButton!
+    
     @objc public var image: UIImage?
     /**
      Array of Stickers -UIImage- that the user will choose from
@@ -66,8 +68,11 @@ public final class PhotoEditorViewController: UIViewController {
     var drawColor: UIColor = UIColor.black
     var textColor: UIColor = UIColor.white
     var isDrawing: Bool = false
+    var isDrawingArrow: Bool = false;
     var lastPoint: CGPoint!
+    var firstPoint: CGPoint!
     var swiped = false
+    var arrowDrawBegin = false;
     var lastPanPoint: CGPoint?
     var lastTextViewTransform: CGAffineTransform?
     var lastTextViewTransCenter: CGPoint?
@@ -124,6 +129,7 @@ public final class PhotoEditorViewController: UIViewController {
         stickersViewController = StickersViewController(nibName: "StickersViewController", bundle: Bundle(for: StickersViewController.self))
         hideControls()
         colorPickerViewBottomConstraint.constant = 25
+        canvasImageView.clipsToBounds = true
     }
     
     public override func viewDidAppear(_ animated: Bool) {
@@ -178,7 +184,7 @@ public final class PhotoEditorViewController: UIViewController {
 
 extension PhotoEditorViewController: ColorDelegate {
     func didSelectColor(color: UIColor) {
-        if isDrawing {
+        if isDrawing || isDrawingArrow {
             self.drawColor = color
         } else if activeTextView != nil {
             activeTextView?.textColor = color

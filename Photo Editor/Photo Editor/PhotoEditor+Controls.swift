@@ -14,6 +14,7 @@ public enum control: String {
     case crop
     case sticker
     case draw
+    case arrow
     case text
     case save
     case share
@@ -52,6 +53,14 @@ extension PhotoEditorViewController {
         colorPickerView.isHidden = false
         hideToolbar(hide: true)
     }
+    
+    @IBAction func arrowButtonTapped(_ sender: Any) {
+        isDrawingArrow = true
+        canvasImageView.isUserInteractionEnabled = false
+        doneButton.isHidden = false
+        colorPickerView.isHidden = false
+        hideToolbar(hide: true)
+    }
 
     @IBAction func textButtonTapped(_ sender: Any) {
         isTyping = true
@@ -81,6 +90,7 @@ extension PhotoEditorViewController {
         canvasImageView.isUserInteractionEnabled = true
         hideToolbar(hide: false)
         isDrawing = false
+        isDrawingArrow = false
     }
     
     //MARK: Bottom Toolbar
@@ -123,7 +133,7 @@ extension PhotoEditorViewController {
     }
     
     func hideControls() {
-        var controls = hiddenControls
+        let controls = hiddenControls
         
         for control in controls {
             if (control == "clear") {
@@ -132,6 +142,8 @@ extension PhotoEditorViewController {
                 cropButton.isHidden = true
             } else if (control == "draw") {
                 drawButton.isHidden = true
+            } else if (control == "arrow") {
+                arrowButton.isHidden = true
             } else if (control == "save") {
                 saveButton.isHidden = true
             } else if (control == "share") {

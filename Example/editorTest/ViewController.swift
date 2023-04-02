@@ -38,10 +38,8 @@ extension ViewController: PhotoEditorDelegate {
 
 extension ViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
-    func imagePickerController(_ picker: UIImagePickerController,
-                               didFinishPickingMediaWithInfo info: [String : Any]) {
-        
-        guard let image = info[UIImagePickerControllerOriginalImage] as? UIImage else {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        guard let image = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
             picker.dismiss(animated: true, completion: nil)
             return
         }
@@ -51,16 +49,19 @@ extension ViewController: UIImagePickerControllerDelegate, UINavigationControlle
         let photoEditor = PhotoEditorViewController(nibName:"PhotoEditorViewController",bundle: Bundle(for: PhotoEditorViewController.self))
         photoEditor.photoEditorDelegate = self
         photoEditor.image = image
+        photoEditor.themeColor = "#1D6EF1"
         //Colors for drawing and Text, If not set default values will be used
         //photoEditor.colors = [.red, .blue, .green]
         
         //Stickers that the user will choose from to add on the image
-        for i in 0...10 {
+        for i in 0...0 {
             photoEditor.stickers.append(UIImage(named: i.description )!)
         }
         
         //To hide controls - array of enum control
-        //photoEditor.hiddenControls = [.crop, .draw, .share]
+        photoEditor.hiddenControls = ["share", "sticker"]
+        
+        photoEditor.modalPresentationStyle = .fullScreen
         
         present(photoEditor, animated: true, completion: nil)
     }
