@@ -12,10 +12,12 @@ extension PhotoEditorViewController {
     
     override public func touchesBegan(_ touches: Set<UITouch>,
                                       with event: UIEvent?){
-        if isDrawing {
+        let drawing = isDrawing || isDrawingArrow
+        if drawing {
             swiped = false
             if let touch = touches.first {
                 lastPoint = touch.location(in: self.canvasImageView)
+                firstPoint = lastPoint
             }
         }
             //Hide stickersVC if clicked outside it
@@ -32,13 +34,18 @@ extension PhotoEditorViewController {
     
     override public func touchesMoved(_ touches: Set<UITouch>,
                                       with event: UIEvent?){
-        if isDrawing {
+        let drawing = isDrawing || isDrawingArrow
+        if drawing {
             // 6
             swiped = true
             if let touch = touches.first {
                 let currentPoint = touch.location(in: canvasImageView)
-                drawLineFrom(lastPoint, toPoint: currentPoint)
-                
+                if isDrawing {
+                    drawLineFrom(lastPoint, toPoint: currentPoint)
+                } else if isDrawingArrow {
+                    drawArrowFrom(firstPoint, to: currentPoint)
+                    arrowDrawBegin = true
+                }
                 // 7
                 lastPoint = currentPoint
             }
@@ -53,7 +60,7 @@ extension PhotoEditorViewController {
                 drawLineFrom(lastPoint, toPoint: lastPoint)
             }
         }
-        
+        arrowDrawBegin = false
     }
     
     func drawLineFrom(_ fromPoint: CGPoint, toPoint: CGPoint) {
@@ -76,6 +83,43 @@ extension PhotoEditorViewController {
             canvasImageView.image = UIGraphicsGetImageFromCurrentImageContext()
         }
         UIGraphicsEndImageContext()
+    }
+    
+    func drawArrow(from startPoint: CGPoint, to endPoint: CGPoint, tailWidth: CGFloat, headWidth: CGFloat, headLength: CGFloat) {
+        let length = hypot(endPoint.x - startPoint.x, endPoint.y - startPoint.y)
+        let tailLength = length - headLength
+        
+        let angle = atan2(endPoint.y - startPoint.y, endPoint.x - startPoint.x)
+        let tailTransform = CGAffineTransform(translationX: startPoint.x, y: startPoint.y)
+            .rotated(by: angle)
+        
+        let tailPoints = [
+            CGPoint(x: 0, y: tailWidth / 2),
+            CGPoint(x: tailLength, y: tailWidth / 2),
+            CGPoint(x: tailLength, y: headWidth / 2),
+            CGPoint(x: length, y: 0),
+            CGPoint(x: tailLength, y: -headWidth / 2),
+            CGPoint(x: tailLength, y: -tailWidth / 2),
+            CGPoint(x: 0, y: -tailWidth / 2),
+            CGPoint(x: 0, y: tailWidth / 2)
+        ]
+        let tailPath = CGMutablePath()
+        tailPath.addLines(between: tailPoints, transform: tailTransform)
+        let arrowLayer = CAShapeLayer()
+        arrowLayer.path = tailPath
+        arrowLayer.fillColor = drawColor.cgColor
+        arrowLayer.strokeColor = drawColor.cgColor
+        arrowLayer.lineCap = .round
+        arrowLayer.lineJoin = .round
+        arrowLayer.lineWidth = 1.5
+        canvasImageView.layer.addSublayer(arrowLayer)
+    }
+    
+    func drawArrowFrom(_ from: CGPoint, to: CGPoint) {
+        if arrowDrawBegin {
+            canvasImageView.layer.sublayers?.last?.removeFromSuperlayer()
+        }
+        drawArrow(from: from, to: to, tailWidth: 3, headWidth: 20, headLength: 20)
     }
     
 }
