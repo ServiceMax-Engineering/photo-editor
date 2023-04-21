@@ -116,6 +116,9 @@ extension PhotoEditorViewController {
         for subview in canvasImageView.subviews {
             subview.removeFromSuperview()
         }
+        canvasImageView.layer.sublayers?.forEach({ layer in
+            layer.removeFromSuperlayer()
+        })
     }
     
     @IBAction func continueButtonPressed(_ sender: Any) {
